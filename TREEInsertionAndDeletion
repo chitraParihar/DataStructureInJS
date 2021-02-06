@@ -64,16 +64,14 @@ Node.prototype.findKey = function(key) {
   }
 }
 Node.prototype.deleteNode = function(key) {
-  var root = this['data'];
   let lastNode = this.findLastNode();
-
   let keyPosition = this.findKey(key);
-  console.log("before delete node1", node1);
+  console.log("#######before delete node1##########", node1);
   let temp = lastNode.right.data;
-  console.log("lastnode", temp)
   lastNode.right = null;
   keyPosition.data = temp;
-  console.log("after delete node1", JSON.parse(JSON.stringify(node1)))
+  console.log("########after delete node1#########", 
+    JSON.parse(JSON.stringify(node1)))
 }
 
 
@@ -88,6 +86,3 @@ node1.insertNode('H');
 node1.insertNode('I');
 node1.insertNode('J');
 node1.deleteNode('B')
-
-
-
