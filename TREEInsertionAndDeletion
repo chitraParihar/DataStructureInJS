@@ -1,0 +1,93 @@
+function Node(data) {
+  this.data = data;
+  this.left = null;
+  this.right = null;
+}
+Node.prototype.insertNode = function(data) {
+  let root = this;
+  if(root == null) {
+    let node = new Node(data);
+    return node;
+  }
+  let queue = []
+  queue.push(root);
+  while(queue.length > 0) {
+     let root = queue[0];
+     queue.shift();
+     if(root.left == null) {
+       root.left = new Node(data);
+       break;
+     } else {
+       queue.push(root.left);
+     }
+
+     if(root.right == null) {
+       root.right = new Node(data);
+       break;
+     } else {
+       queue.push(root.right);
+     }
+  }
+}
+
+Node.prototype.findLastNode = function() {
+  let root = this;
+  let queue = [];
+  queue.push(root);
+  let lastRoot =  root;
+  while(queue.length > 0) {
+    let temp = queue.shift();
+    if(temp.right == null) {
+      return lastRoot;
+    } else {
+      lastRoot = temp;
+      queue.push(temp.right);
+    }
+  }
+}
+
+Node.prototype.findKey = function(key) {
+  let root = this;
+  let queue = [];
+  queue.push(root);
+  while(queue.length > 0) {
+    let temp = queue.shift(); 
+    if(temp == null) {
+      return temp;
+    } else if(temp.data === key) {
+      return temp;
+    } else {
+      queue.push(temp.left);
+      queue.push(temp.right);
+    }
+   
+  }
+}
+Node.prototype.deleteNode = function(key) {
+  var root = this['data'];
+  let lastNode = this.findLastNode();
+
+  let keyPosition = this.findKey(key);
+  console.log("before delete node1", node1);
+  let temp = lastNode.right.data;
+  console.log("lastnode", temp)
+  lastNode.right = null;
+  keyPosition.data = temp;
+  console.log("after delete node1", JSON.parse(JSON.stringify(node1)))
+}
+
+
+var node1 = new Node('A');
+node1.insertNode('B');
+node1.insertNode('C');
+node1.insertNode('D');
+node1.insertNode('E');
+node1.insertNode('F');
+node1.insertNode('G');
+node1.insertNode('H');
+node1.insertNode('I');
+node1.insertNode('J');
+node1.deleteNode('B')
+
+
+
