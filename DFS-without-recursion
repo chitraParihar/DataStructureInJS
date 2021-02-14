@@ -1,0 +1,44 @@
+
+function Node(data) {
+  this.data = data;
+  this.left = null;
+  this.right = null;
+}
+// FROM Insertion-deletion-tree
+var node1 = new Node('1');
+node1.insertNode('2');
+node1.insertNode('3');
+node1.insertNode('4');
+node1.insertNode('5');
+node1.insertNode('6');
+node1.insertNode('7');
+node1.insertNode('8');
+node1.insertNode('9');
+node1.insertNode('10');
+node1.insertNode('11');
+console.log("TREE>>>>>>", node1);
+
+Node.prototype.inOrderTraversal = function() {
+  let node = this;
+  let stack = [];
+  if(node == null) {
+    return;
+  }
+  let current = node;
+  while(stack.length > 0 || current!=null) {
+     while(current!=null) {
+         stack.unshift(current);  
+         current = current.left; 
+     }     
+     current = stack[0];
+     stack.shift();
+     if(current!=null) {
+        console.log(`${current.data} -->`);
+        current = current.right;
+     }
+
+  }
+}
+
+node1.inOrderTraversal();
+
