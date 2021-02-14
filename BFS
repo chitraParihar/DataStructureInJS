@@ -1,0 +1,33 @@
+
+Node.prototype.BFS = function(root) {
+  if(root == null) {
+    return "no tree";
+  }
+  let queue = [];
+  queue.push(root);
+  
+  console.log("QUE+UE", queue)
+  while(queue.length > 0) {
+    debugger
+    if(queue[0].data!=null) {
+      console.log("BFS", root.data);
+    }
+    queue.shift();
+    root.left!=null && queue.push(root.left);
+    root.right!=null && queue.push(root.right);
+    root = queue[0];
+  }
+}
+
+var node1 = new Node('A');
+node1.insertNode('B');
+node1.insertNode('C');
+node1.insertNode('D');
+node1.insertNode('E');
+node1.insertNode('G');
+node1.insertNode('H');
+node1.insertNode('I');
+node1.insertNode('J');
+node1.BFS(node1)
+
+
