@@ -1,0 +1,83 @@
+function Node(data) {
+  this.data = data;
+  this.left = null;
+  this.right = null;
+}
+
+function getHeight(node) {
+  if (node == null) {
+    return -1;
+  } else {
+    let ld = getHeight(node.left);
+    let rd = getHeight(node.right);
+    if (ld > rd) {
+      return ld + 1;
+    } else {
+      return rd + 1;
+    }
+  }
+}
+
+function getBalanceFactor(node) {
+  return getHeight(node.left) - getHeight(node.right);
+}
+
+function leftRotate(node) {
+  let x = node.left;
+  let y = node.right;
+  x.right = node;
+  node.left = y;
+  return x;
+}
+
+function rightRotate(node) {
+  let x = node.right;
+  let y = node.left;
+  x.left = node;
+  node.right = y;
+  return x;
+}
+
+function insertNodeinBST(node, key) {
+  let newNode = new Node(key);
+  if (node == null) {
+    return newNode;
+  }
+  if(node.data === key) {
+    return node;
+  }
+  if (key < node.data) {
+    node.left = insertNodeinBST(node.left, key);
+  } else {
+    node.right = insertNodeinBST(node.right, key);
+  }
+  node.height = Math.max(getHeight(node.left),  getHeight(node.right));
+  
+  let bf = getBalanceFactor(node);
+  if(bf > 1 || bf < -1) {
+    if(bf > 1 && key < node.left.data) {
+      return leftRotate(node);
+    } else if(bf > 1 && key > node.left.data) {
+      node.left = leftRotate(node.left);
+      return rightRotate(node)
+    } else if(bf < 0  && key > node.right.data) {
+      return rightRotate(node);
+    } else if(bf < 0 && key > node.right.data) {
+      node.right = rightRotate(node.right);
+      return leftRotate(node)
+    }
+  } else {
+    console.log("BALANCED TREE")
+  }
+  return node;
+}
+
+var node1 = new Node(9);
+insertNodeinBST(node1, 5)
+insertNodeinBST(node1, 10)
+insertNodeinBST(node1, 5)
+insertNodeinBST(node1, 9)
+insertNodeinBST(node1, 7)
+insertNodeinBST(node1, 17)
+
+console.log(node1);
